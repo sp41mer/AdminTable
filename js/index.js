@@ -19,7 +19,7 @@ $(document).ready(function(){
             newThis.after("<tr  class = \'category active level2 \' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><td>" + item.name + "</td></tr>");
           });
           responseAnswers.forEach(function (item, i, arr) {
-            newThis.after("<tr  class = \'answer\' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><td>" + item.name + "</td></tr>");
+            newThis.after("<tr  class = \'answer active\' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><td>" + item.name + "</td></tr>");
           });
         }, "json");
   });
@@ -30,6 +30,15 @@ $(document).ready(function(){
     parents.each(function(index) {
       $("tr[data-parent='"+$(this).data('id')+"']").remove();
     });
+  });
+  $(".categories").on('click','.answer',function(){
+    $(this).removeClass("active").addClass("passive");
+    $.post("http://127.0.0.1:8888/method/getDetail",
+        {'id': $(this).data('id'), 'version': '1.0'},
+        function (data) {
+          text = data.videourl;
+          alert(text);
+        }, "json");
   });
 
 });
