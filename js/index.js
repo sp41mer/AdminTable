@@ -3,7 +3,7 @@ $.post("http://127.0.0.1:8888/method/getContent",
     function (data) {
       responseCategories = (data.categories)
       responseCategories.forEach(function (item, i, arr) {
-        $(".container").append("<div class = \'category active level1\' data-id =\'" + item.id + "\' data-level ='1'><span>" + item.name + "</span></div>");
+        $(".container").append("<div class = \'category active level1\' data-id =\'" + item.id + "\' data-level ='1'><span>" + item.name + "</span><button class = \'js__category__edit\'>Редактировать</button><button class = \'js__category__remove\'>Удалить</button></div>");
       });
     }, "json");
 $(document).ready(function(){
@@ -17,17 +17,17 @@ $(document).ready(function(){
           responseCategories = (data.categories);
           responseAnswers = (data.answers);
           responseCategories.forEach(function (item, i, arr) {
-            newThis.append("<div  class = \'category active level2 \' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><span>" + item.name + "</span></div>");
+            newThis.append("<div  class = \'category active level2 \' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><span>" + item.name + "</span><button class = \'js__category__edit\'>Редактировать</button><button class = \'js__category__remove\'>Удалить</button></div>");
           });
           responseAnswers.forEach(function (item, i, arr) {
-            newThis.append("<div  class = \'answer active\' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><span>" + item.name + "</span></div>");
+            newThis.append("<div  class = \'answer active\' data-level =\'" + (newThis.data('level')+1) + "\' data-id =\'" + item.id + "\' data-parent=\'"+newThis.data('id')+"\'><span>" + item.name + "</span><button class = \'js__category__edit\'>Редактировать</button><button class = \'js__category__remove\'>Удалить</button></div>");
           });
         }, "json");
   });
   $(".container").on('click','.category.passive',function(e){
     e.stopPropagation();
     $(this).removeClass("passive").addClass("active");
-    $(this).children().remove();
+    $(this).children().slice(1).remove();
   });
   $(".container").on('click','.answer.active',function(e){
     e.stopPropagation();
@@ -50,7 +50,7 @@ $(document).ready(function(){
   $(".container").on('click','.answer.passive',function(e){
     e.stopPropagation();
     $(this).removeClass("passive").addClass("active");
-    $(this).children().remove();
+    $(this).children().slice(1).remove();
   });
   $(".container").on('click','.details',function(e){
     e.stopPropagation();
