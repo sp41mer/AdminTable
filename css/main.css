@@ -1,0 +1,25 @@
+div .level1{
+    min-width: 300px;
+    min-height: 50px;
+    margin: 10px auto;
+    background-color: burlywood;
+}
+div .level2{
+    min-width: 300px;
+    min-height: 50px;
+    margin: 10px 0;
+    background-color: coral;
+}
+div .answer{
+    min-width: 300px;
+    min-height: 50px;
+    margin: 10px 0;
+    background-color: aqua;
+}
+.details{
+    background-color: darkseagreen;
+}
+.detail{
+    background-color: darkseagreen;
+    max-width: 500px;
+}

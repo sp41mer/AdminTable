@@ -1,4 +1,7 @@
-$.post("http://127.0.0.1:8888/method/getContent",
+var getContentMethod = "http://127.0.0.1:8888/method/getContent";
+var categoryRemoveMethod = "http://127.0.0.1:8888/method/categoryRemove";
+
+$.post(getContentMethod,
     {'id': 0, 'version': '1.0'},
     function (data) {
       responseCategories = (data.categories)
@@ -11,7 +14,7 @@ $(document).ready(function(){
     e.stopPropagation();
     $(this).removeClass("active").addClass("passive");
     newThis = $(this);
-    $.post("http://127.0.0.1:8888/method/getContent",
+    $.post(getContentMethod,
         {'id': $(this).data('id'), 'version': '1.0'},
         function (data) {
           responseCategories = (data.categories);
