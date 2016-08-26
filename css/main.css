@@ -23,3 +23,9 @@ div .answer{
     background-color: darkseagreen;
     max-width: 500px;
 }
+.category.new{
+    min-width: 300px;
+    min-height: 50px;
+    margin: 10px 0;
+    background-color: #bbd7d6;
+}
