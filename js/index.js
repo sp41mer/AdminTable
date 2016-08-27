@@ -4,6 +4,8 @@ const categoryRemoveMethod = "http://127.0.0.1:8888/method/categoryRemove"; //do
 const categoryAddMethod = "http://127.0.0.1:8888/method/categoryAdd"; //done
 const answerAddMethod = "http://127.0.0.1:8888/method/answerAdd"; //done
 const answerRemoveMethod = "http://127.0.0.1:8888/method/answerRemove"; //done
+const categoryUpdateMethod = "http://127.0.0.1:8888/method/categoryUpdate"; //done
+const answerUpdateMethod = "http://127.0.0.1:8888/method/answerUpdate"; //done
 
 var historyValue = null;
 
@@ -62,7 +64,7 @@ $(document).ready(function(){
               "<tbody><tr><td contenteditable=\'true\' class = \'detail name\' data-parent = \'"+newThis.data('id')+"\'>"+name+"</td>" +
               "<td contenteditable=\'true\' class =\'detail text\' data-parent = \'"+newThis.data('id')+"\'>"+text+"</td>" +
               "<td contenteditable=\'true\' class =\'detail video\' data-parent = \'"+newThis.data('id')+"\'>"+video+"</td>" +
-              "<td contenteditable=\'true\' class =\'detail image\' data-parent = \'"+newThis.data('id')+"\'>"+image+"</td></tr></tbody></table><button class=\'js__details__button__save\'>Сохранить</button>");
+              "<td contenteditable=\'true\' class =\'detail image\' data-parent = \'"+newThis.data('id')+"\'>"+image+"</td></tr></tbody></table><button class=\'js__details__button__save\'>Сохранить</button><button class=\'js__details__button__cancel\'>Отменить</button>");
         }, "json");
   });
   $(".container").on('click','.answer.passive',function(e){
@@ -86,6 +88,14 @@ $(document).ready(function(){
 
   $(".container").on('click','.js__category__button__save',function(e){
     e.stopPropagation();
+    text = $(this).parent().find("span.editing").text();
+    $.post(categoryUpdateMethod,
+        {'id': $(this).parent().data('id'),
+          'name': text,
+          'version': '1.0'},
+        function (data) {
+        }, "json");
+    alert('Dobavleno!');
     $(this).parent().find('span').removeAttr('contenteditable').removeClass('editing');
   });
 
@@ -174,6 +184,29 @@ $(document).ready(function(){
     $(this).parent().remove();
   });
 
+  $(".container").on('click','.js__details__button__save',function(e){
+    e.stopPropagation();
+    alert($(this).parent().find("td.name").data('parent'));
+    alert($(this).parent().find("td.name").text());
+    alert($(this).parent().find("td.image").text());
+    $.post(answerUpdateMethod,
+        {'id': $(this).parent().find("td.name").data('parent'),
+          'name': $(this).parent().find("td.name").text(),
+          'text': $(this).parent().find("td.text").text(),
+          'image': $(this).parent().find("td.image").text(),
+          'video': $(this).parent().find("td.video").text(),
+          'version': '1.0'},
+        function (data) {
+        }, "json");
+    alert('Dobavleno!');
+  });
+  $(".container").on('click','.js__details__button__cancel',function(e){
+    e.stopPropagation();
+    $(this).parent().children().remove();
+  });
+
+
+  //не помню зачем это надо
   $(".container").on('click','.category.new',function(e){
     e.stopPropagation();
   });
